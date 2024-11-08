@@ -46,11 +46,7 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         """Implement the format method to filter values in incoming log records
-        using filter_datum. Values for fields in fields should be filtered.
         """
-
-        # record is an instance of logging.logRecord so if parsed access
-        # the and parse the attribute of an instance of record.msg
         record.msg = filter_datum(
             self.fields, self.REDACTION, record.msg, self.SEPARATOR)
         return super().format(record)
