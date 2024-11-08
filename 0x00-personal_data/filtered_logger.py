@@ -20,6 +20,7 @@ import logging
 
 def filter_datum(fields: List[str],
                  redaction: str, message: str, separator: str) -> str:
+    """using regex to match group of patterns"""
     pattern = r"(" + "|".join(re.escape(field) + r"=[^" + re.escape(separator)
                               + r"]+" for field in fields) + r")"
 
