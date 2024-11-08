@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """
 Write a function called filter_datum that returns the log message obfuscated:
 
@@ -39,9 +40,9 @@ class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
         """
 
-    REDACTION = "***"
-    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
-    SEPARATOR = ";"
+    REDACTION: str = "***"
+    FORMAT: str = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR: str = ";"
 
     def __init__(self, fields: List[str]) -> None:
         super(RedactingFormatter, self).__init__(self.FORMAT)
