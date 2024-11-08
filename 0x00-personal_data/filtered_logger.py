@@ -30,10 +30,10 @@ def filter_datum(fields: List[str],
     return redacted_message
 
 
-class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-    """
-    pass
+# class RedactingFormatter(logging.Formatter):
+#     """ Redacting Formatter class
+#     """
+#     pass
 
     # REDACTION: str = "***"
     # FORMAT: str =\
