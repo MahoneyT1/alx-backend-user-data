@@ -39,9 +39,9 @@ class RedactingFormatter(logging.Formatter):
         "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR: str = ";"
 
-    def __init__(self, fields: List[str]) -> None:
-        super(RedactingFormatter, self).__init__(self.FORMAT)
-        pass
+    # def __init__(self, fields: List[str]) -> None:
+    #     super(RedactingFormatter, self).__init__(self.FORMAT)
+    #     pass
     #     self.fields: List[str] = fields
 
     # def format(self, record: logging.LogRecord) -> str:
