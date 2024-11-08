@@ -18,10 +18,6 @@ import re
 import logging
 
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-
 def filter_datum(fields: List[str],
                  redaction: str, message: str, separator: str) -> str:
     """using regex to match group of patterns"""
