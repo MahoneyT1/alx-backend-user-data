@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Obfuscates specified fields in a log message.
- Args:
+Args:
     fields (List[str]): List of field names to obfuscate.
     redaction (str): String to replace sensitive field values with.
     message (str): The log message containing sensitive data.
@@ -32,7 +32,7 @@ def filter_datum(fields: List[str],
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
-        """
+    """
 
     REDACTION: str = "***"
     FORMAT: str =\
