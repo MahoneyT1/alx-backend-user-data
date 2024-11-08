@@ -18,7 +18,7 @@ import re
 import logging
 
 
-def filter_datum(fields: List, redaction: str, message: str, separator: str):
+def filter_datum(fields: List, redaction: str, message: str, separator: str)-> str:
     pattern = r"(" + "|".join(re.escape(field) + r"=[^" + re.escape(separator)
                               + r"]+" for field in fields) + r")"
 
