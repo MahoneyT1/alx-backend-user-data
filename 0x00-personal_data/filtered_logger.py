@@ -1,17 +1,12 @@
 #!/usr/bin/env python3
-
-"""
-Write a function called filter_datum that returns the log message obfuscated:
-
-Arguments:
-fields: a list of strings representing all fields to obfuscate
-redaction: a string representing by what the field will be obfuscated
-message: a string representing the log line
-separator: a string representing by which character is separating all
-fields in the log line (message)
-The function should use a regex to replace occurrences of certain field values.
-filter_datum should be less than 5 lines long and use re.sub to perform the
-substitution with a single regex.
+"""Obfuscates specified fields in a log message.
+ Args:
+    fields (List[str]): List of field names to obfuscate.
+    redaction (str): String to replace sensitive field values with.
+    message (str): The log message containing sensitive data.
+    separator (str): Character that separates fields in the log message.
+Returns:
+    str: The obfuscated log message.
 """
 from typing import List
 import logging
@@ -20,8 +15,10 @@ import re
 
 def filter_datum(fields: List[str],
                  redaction: str, message: str, separator: str) -> str:
-    """using regex to match group of patterns"""
-
+    """Initialize the formatter with fields to redact.
+    Args:
+        fields (List[str]): Fields to redact in log messages.
+    """
     pattern = r"(" + "|".join(re.escape(field) + r"=[^" + re.escape(separator)
                               + r"]+" for field in fields) + r")"
 
