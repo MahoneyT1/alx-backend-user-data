@@ -14,13 +14,14 @@ filter_datum should be less than 5 lines long and use re.sub to perform the
 substitution with a single regex.
 """
 from typing import List
-import re
 import logging
+import re
 
 
 def filter_datum(fields: List[str],
                  redaction: str, message: str, separator: str) -> str:
     """using regex to match group of patterns"""
+
     pattern = r"(" + "|".join(re.escape(field) + r"=[^" + re.escape(separator)
                               + r"]+" for field in fields) + r")"
 
@@ -37,12 +38,13 @@ class RedactingFormatter(logging.Formatter):
         """
 
     REDACTION: str = "***"
-    FORMAT: str = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    FORMAT: str =\
+        "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR: str = ";"
 
     def __init__(self, fields: List[str]) -> None:
         super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.fields: List = fields
+        self.fields: List[str] = fields
 
     def format(self, record: logging.LogRecord) -> str:
         """Implement the format method to filter values in incoming log records
