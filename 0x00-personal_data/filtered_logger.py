@@ -8,7 +8,7 @@ Args:
 Returns:
     str: The obfuscated log message.
 """
-from typing import List
+from typing import List, Any
 import logging
 import re
 
@@ -43,7 +43,7 @@ class RedactingFormatter(logging.Formatter):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields: List[str] = fields
 
-    def format(self, record: logging.LogRecord) -> List[str]:
+    def format(self, record: logging.LogRecord) -> Any:
         """Implement the format method to filter values in incoming log records
         """
         record.msg = filter_datum(
