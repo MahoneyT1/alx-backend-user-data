@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 """
 Write a function called filter_datum that returns the log message obfuscated:
 
@@ -18,6 +17,10 @@ import re
 import logging
 
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+
 def filter_datum(fields: List[str],
                  redaction: str, message: str, separator: str) -> str:
     """using regex to match group of patterns"""
@@ -30,3 +33,27 @@ def filter_datum(fields: List[str],
                               + "=" + redaction, message)
 
     return redacted_message
+
+
+class RedactingFormatter(logging.Formatter):
+    """ Redacting Formatter class
+        """
+
+    REDACTION = "***"
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR = ";"
+
+    def __init__(self, fields):
+        super(RedactingFormatter, self).__init__(self.FORMAT)
+        self.fields = fields
+
+    def format(self, record: logging.LogRecord) -> str:
+        """Implement the format method to filter values in incoming log records
+        using filter_datum. Values for fields in fields should be filtered.
+        """
+
+        # record is an instance of logging.logRecord so if parsed access
+        # the and parse the attribute of an instance of record.msg
+        record.msg = filter_datum(
+            self.fields, self.REDACTION, record.msg, self.SEPARATOR)
+        return super().format(record)
