@@ -43,7 +43,7 @@ class RedactingFormatter(logging.Formatter):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields: List[str] = fields
 
-    def format(self, record: logging.LogRecord) -> str:
+    def format(self, record: logging.LogRecord) -> List[str]:
         """Implement the format method to filter values in incoming log records
         """
         record.msg = filter_datum(
