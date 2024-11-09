@@ -12,6 +12,8 @@ from typing import List, Any
 import logging
 import re
 
+PII_FIELDS = ('email', 'phone', 'ssn', 'password', 'ip')
+
 
 def filter_datum(fields: List[str],
                  redaction: str, message: str, separator: str) -> str:
@@ -49,3 +51,25 @@ class RedactingFormatter(logging.Formatter):
         msg = super(RedactingFormatter, self).format(record)
         txt = filter_datum(self.fields, self.REDACTION, msg, self.SEPARATOR)
         return txt
+
+
+def get_logger() -> logging.Logger:
+    """Implement a get_logger function that takes no arguments and returns a
+    logging.Logger object.
+
+    The logger should be named "user_data" and only log up to logging.INFO
+    level. It should not propagate messages to other loggers. It should
+    have a StreamHandler with RedactingFormatter as formatter.
+    """
+
+    # Create a logger with the name user_data
+    logger = logging.getLogger('user_data')
+    # Set logger level to Info
+    logger.setLevel(logging.INFO)
+
+    # Create the logger_handler streamhandleer for streaming stdout to console
+    logger_handler = logging.StreamHandler()
+    logger_handler.setFormatter(RedactingFormatter.FORMAT)
+
+    logger.addHandler(logger_handler)
+    return logger
