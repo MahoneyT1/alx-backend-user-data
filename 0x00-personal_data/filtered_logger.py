@@ -70,6 +70,4 @@ def get_logger() -> logging.Logger:
     # Create the logger_handler streamhandleer for streaming stdout to console
     logger_handler = logging.StreamHandler()
     logger_handler.setFormatter(RedactingFormatter.FORMAT)
-
-    logger.addHandler(logger_handler)
     return logger
