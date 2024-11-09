@@ -14,7 +14,7 @@ import re
 
 
 def filter_datum(fields: List[str],
-                 redaction: str, message: str, separator: str)-> str:
+                 redaction: str, message: str, separator: str) -> str:
     """Initialize the formatter with fields to redact.
     Args:
         fields (List[str]): Fields to redact in log messages.
@@ -43,12 +43,9 @@ class RedactingFormatter(logging.Formatter):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields: List[str] = fields
 
-    def format(self, record: logging.LogRecord)-> str:
+    def format(self, record: logging.LogRecord) -> str:
         """Implement the format method to filter values in incoming log records
         """
-        # msg = super(RedactingFormatter, self).format(record)
-        # txt = filter_datum(self.fields, self.REDACTION, msg, self.SEPARATOR)
-        # return txt
         msg = super(RedactingFormatter, self).format(record)
         txt = filter_datum(self.fields, self.REDACTION, msg, self.SEPARATOR)
         return txt
