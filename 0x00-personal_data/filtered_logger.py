@@ -38,14 +38,14 @@ class RedactingFormatter(logging.Formatter):
         "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR: str = ";"
 
-    def __init__(self, fields: List[str])-> None:
+    def __init__(self, fields: List[str]):
         """initialize an instance"""
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields: List[str] = fields
 
-    def format(self, record: logging.LogRecord)-> logging:
+    def format(self, record: logging.LogRecord)-> str:
         """Implement the format method to filter values in incoming log records
         """
-        record.msg = filter_datum(
-            self.fields, self.REDACTION, record.msg, self.SEPARATOR)
-        return super().format(record)
+        msg = super(RedactingFormatter, self).format(record)
+        txt = filter_datum(self.fields, self.REDACTION, msg, self.SEPARATOR)
+        return txt
