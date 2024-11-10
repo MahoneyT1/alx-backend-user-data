@@ -90,11 +90,13 @@ def get_db() -> MySQLConnection:
     """
 
     # exract the environmenet variabls for mysql connector object
-    conn_obj = mysql.connector.connect(
-        host=os.getenv("PERSONAL_DATA_DB_HOST"),
-        password=os.getenv("PERSONAL_DATA_DB_PASSWORD"),
-        database=os.getenv("PERSONAL_DATA_DB_NAME"),
-        username=os.getenv("PERSONAL_DATA_DB_USERNAME"),
-        port=3306
-    )
-    return conn_obj
+    db_config = {
+        'host': os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+        'user': os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+        'password': os.getenv('PERSONAL_DATA_DB_PASSWORD', ''),
+        'database': os.getenv('PERSONAL_DATA_DB_NAME', 'my_db')
+    }
+
+    # Establish and return a connection to MySQL
+    connection = mysql.connector.connect(**db_config)
+    return connection
