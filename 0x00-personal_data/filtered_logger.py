@@ -80,7 +80,7 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db()-> MySQLConnection:
+def get_db() -> MySQLConnection:
     """function that returns a connector to the database
     (mysql.connector.connection.MySQLConnection object).
 
