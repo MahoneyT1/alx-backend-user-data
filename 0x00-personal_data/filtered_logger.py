@@ -8,9 +8,13 @@ Args:
 Returns:
     str: The obfuscated log message.
 """
-from typing import List, Any
+
+from typing import List
 import logging
 import re
+import os
+import mysql.connector
+
 
 PII_FIELDS = ('email', 'phone', 'ssn', 'password', 'name')
 
@@ -73,3 +77,22 @@ def get_logger() -> logging.Logger:
     logger.addHandler(logger_handler)
     logger.propagate = False
     return logger
+
+
+def get_db():
+    """function that returns a connector to the database
+    (mysql.connector.connection.MySQLConnection object).
+
+    Use the os module to obtain credentials from the environment
+    Use the module mysql-connector-python to connect to the MySQL
+    database
+    """
+
+    # exract the environmenet variabls for mysql connector object
+    conn_obj = mysql.connector.connect(
+        host=os.getenv("PERSONAL_DATA_DB_HOST"),
+        password=os.getenv("PERSONAL_DATA_DB_PASSWORD"),
+        database=os.getenv("PERSONAL_DATA_DB_NAME"),
+        username=os.getenv("PERSONAL_DATA_DB_USERNAME")
+    )
+    return conn_obj
