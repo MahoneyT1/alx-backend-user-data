@@ -22,8 +22,8 @@ def not_found() -> str:
     return jsonify({"error": "Not found"}), 404
 
 
-@app.errorhandler(HTTPException)
-def unauthorized(e) -> str:
+@app.errorhandler
+def unauthorized() -> str:
     """error handler, n this archive, you will find a simple
     API with one model: User. Storage of these users is done
     via a serialization/deserialization in files.
