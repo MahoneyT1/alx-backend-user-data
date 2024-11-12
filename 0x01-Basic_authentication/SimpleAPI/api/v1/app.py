@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Route module for the API
+Route module for the API for this temporary usage of flask app
+instal the depencies
 """
 from os import getenv
 from api.v1.views import app_views
