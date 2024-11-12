@@ -23,11 +23,9 @@ def not_found() -> str:
     return jsonify({"error": "Not found"}), 404
 
 
-@app.errorhandler
-def unauthorized() -> str:
-    """error handler, n this archive, you will find a simple
-    API with one model: User. Storage of these users is done
-    via a serialization/deserialization in files.
+@app.errorhandler(HTTPException)
+def unauthorized(e) -> str:
+    """error handler, n this archive
     """
 
     return jsonify({"error": "Unauthorized"}), 401
@@ -36,4 +34,4 @@ def unauthorized() -> str:
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
     port = getenv("API_PORT", "5000")
-    app.run(host=host, port=port)
+    app.run(host=host, port=port, debug=True)
