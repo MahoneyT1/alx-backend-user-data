@@ -21,12 +21,14 @@ def not_found() -> str:
     """
     return jsonify({"error": "Not found"}), 404
 
+
 @app.errorhandler(HTTPException)
 def unauthorized(e):
     """401 unauthorized"""
 
     return jsonify({
-        "error":"Unauthorized"
+        """error handler"""
+        "error": "Unauthorized"
     })
 
 
