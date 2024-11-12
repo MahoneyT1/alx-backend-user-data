@@ -24,12 +24,12 @@ def not_found() -> str:
 
 @app.errorhandler(HTTPException)
 def unauthorized(e) -> str:
-    """401 unauthorized"""
+    """error handler, n this archive, you will find a simple
+    API with one model: User. Storage of these users is done
+    via a serialization/deserialization in files.
+    """
 
-    return jsonify({
-        """error handler"""
-        "error": "Unauthorized"
-    })
+    return jsonify({"error": "Unauthorized"})
 
 
 if __name__ == "__main__":
