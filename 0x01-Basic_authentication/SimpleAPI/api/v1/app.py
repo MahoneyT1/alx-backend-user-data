@@ -29,7 +29,7 @@ def unauthorized(e) -> str:
     via a serialization/deserialization in files.
     """
 
-    return jsonify({"error": "Unauthorized"})
+    return jsonify({"error": "Unauthorized"}), 401
 
 
 if __name__ == "__main__":
