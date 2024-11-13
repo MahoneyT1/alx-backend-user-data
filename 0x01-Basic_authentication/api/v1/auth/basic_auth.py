@@ -11,7 +11,8 @@ from .auth import Auth
 
 
 class BasicAuth(Auth):
-    """Basic Auth"""
-
-
-    
+    """Basic Auth AUTH_TYPE, If AUTH_TYPE is equal to basic_auth:
+    import BasicAuth from api.v1.auth.basic_auth
+    create an instance of BasicAuth and assign it to the variable auth
+    """
+    pass
