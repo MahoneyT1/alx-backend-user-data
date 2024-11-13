@@ -7,6 +7,7 @@ AUTH_TYPE, If AUTH_TYPE is equal to basic_auth:
 import BasicAuth from api.v1.auth.basic_auth
 create an instance of BasicAuth and assign it to the variable auth
 """
+from ctypes import Union
 from .auth import Auth
 
 
@@ -17,7 +18,7 @@ class BasicAuth(Auth):
     """
     
     def extract_base64_authorization_header(
-            self, authorization_header: str) -> str:
+            self, authorization_header: str) -> Union[str, None]:
         """Add the method def extract_base64_authorization_header
         (self, authorization_header: str) -> str: in the class BasicAuth
         that returns the Base64 part of the Authorization header for a
