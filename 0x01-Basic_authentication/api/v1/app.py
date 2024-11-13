@@ -38,6 +38,7 @@ def handle_before_request(r=requests_paths):
     """
 
     if os.getenv('AUTH_TYPE') == "basic_auth":
+        print(os.getenv('AUTH_TYPE'))
         from .auth.basic_auth import BasicAuth
 
         # Create an Instance of  a Auth
@@ -60,6 +61,21 @@ def handle_before_request(r=requests_paths):
     else:
         from .auth.auth import Auth
         auth = Auth()
+
+        if auth is None:
+            return
+
+        result = auth.require_auth(request.path, r)
+        if result is False:
+            return
+
+        result = auth.authorization_header(request)
+        if result is None:
+            abort(401)
+
+        cur_user = auth.current_user(request)
+        if cur_user is None:
+            abort(403)
 
 
 @app.errorhandler(404)
