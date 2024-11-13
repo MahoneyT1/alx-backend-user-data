@@ -19,6 +19,43 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 auth = None
 
+requests_paths = ['/api/v1/status/',
+                  '/api/v1/unauthorized/',
+                  '/api/v1/forbidden/']
+
+
+@app.errorhandler(401)
+def unauthorize_handler(e):
+    """Route that triggers a 401 Unauthorized error."""
+    return jsonify({"error": "Unauthorized"})
+
+
+@app.before_request
+def handle_before_request(r=requests_paths):
+    """sets up the authorization system"""
+
+    if os.getenv('AUTH_TYPE') == "auth":
+        from api.v1.auth.auth import Auth
+
+        # Create an Instance of  a Auth
+        auth = Auth()
+
+        if auth is None:
+            return
+
+        result = auth.require_auth(request.path, r)
+        if result is False:
+            return
+
+        result = auth.authorization_header(request)
+        if result is None:
+            abort(401)
+
+        cur_user = auth.current_user(request)
+
+        if cur_user is None:
+            abort(403)
+
 
 @app.errorhandler(404)
 def not_found(error) -> str:
@@ -27,65 +64,11 @@ def not_found(error) -> str:
     return jsonify({"error": "Not found"}), 404
 
 
-@app_views.route('/api/v1/unauthorized', methods=['GET'], strict_slashes=False)
-def unauthorized_route():
-    """Route that triggers a 401 Unauthorized error."""
-    abort(401)
-
-
 @app.errorhandler(403)
 def forbidden(error) -> str:
     """ Forbidden handler
     """
     return jsonify({"error": "Forbidden"}), 403
-
-
-"""Add a method in api/v1/app.py to handler before_request
-if auth is None, do nothing
-if request.path is not part of this list
-['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/'],
-do nothing - you must use the method require_auth from the auth instance
-if auth.authorization_header(request) returns None, raise the error 401
-- you must use abort if auth.current_user(request) returns None, raise
-the error 403 - you must use abort
-"""
-
-requests_paths = ['/api/v1/status/',
-                  '/api/v1/unauthorized/',
-                  '/api/v1/forbidden/']
-
-if os.getenv('AUTH_TYPE') == "auth":
-    from api.v1.auth.auth import Auth
-
-    # Create an Instance of  a Auth
-    auth = Auth()
-
-    if auth is None:
-        pass
-
-
-def handle_before_request(req_p, requests_paths):
-    """sets up the authorization system"""
-    if request.paths in requests_paths:
-        pass
-
-    result = auth.authorization_header(request)
-    if result is None:
-        abort(401)
-
-    cur_user = auth.current_user(request)
-
-    if cur_user is None:
-        abort(403)
-
-    result = auth.authorization_header(request)
-    if result is None:
-        abort(401)
-
-    cur_user = auth.current_user(request)
-
-    if cur_user is None:
-        abort(403)
 
 
 if __name__ == "__main__":

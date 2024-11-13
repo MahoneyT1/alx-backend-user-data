@@ -13,6 +13,7 @@ will implement.
 from flask import request
 from typing import List, TypeVar
 import re
+from flask import request, abort
 
 from api.v1 import auth
 
@@ -69,7 +70,7 @@ class Auth:
             return authorization 
 
 
-
+    
     def current_user(self, request=None) -> TypeVar:
         """stores the current user """
-        return None
+        user  = re
