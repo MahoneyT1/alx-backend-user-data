@@ -29,18 +29,16 @@ def not_found(error) -> str:
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
-    """unauthorized error handler
+    """ Unauthorized handler
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
-def forbidden_route(e) -> str:
-    """forbidden error handler"""
-    data = {
-        "error": "Forbidden"
-    }
-    return jsonify(data), 403
+def forbidden(error) -> str:
+    """ Forbidden handler
+    """
+    return jsonify({"error": "Forbidden"}), 403
 
 
 """Add a method in api/v1/app.py to handler before_request
