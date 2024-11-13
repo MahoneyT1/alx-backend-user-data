@@ -40,3 +40,4 @@ class BasicAuth(Auth):
 
                 new_string = authorization_header[get_index:]
                 return new_string
+            return None
