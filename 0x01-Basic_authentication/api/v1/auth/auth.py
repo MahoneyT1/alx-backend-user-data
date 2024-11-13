@@ -10,12 +10,8 @@ None - request will be the Flask request object
 This class is the template for all authentication system you
 will implement.
 """
-from flask import request
 from typing import List, TypeVar
 import re
-from flask import request, abort
-
-from api.v1 import auth
 
 
 class Auth:
@@ -70,7 +66,6 @@ class Auth:
             return authorization 
 
 
-    
     def current_user(self, request=None) -> TypeVar:
         """stores the current user """
-        user  = re
+        user  = request.current_user()
