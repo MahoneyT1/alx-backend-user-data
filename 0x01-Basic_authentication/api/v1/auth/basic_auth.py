@@ -31,13 +31,9 @@ class BasicAuth(Auth):
         You can assume authorization_header contains only one Basic
         """
 
-        if not isinstance(authorization_header, str) or authorization_header is None:
-            return None
-
-        if authorization_header.startswith('Basic'):
-            if " " in authorization_header:
-                get_index = authorization_header.index(" ")
-
-                new_string = authorization_header[get_index:]
-                return new_string
-            return None
+        if type(authorization_header) == str:
+            pattern = r'Basic (?P<token>.+)'
+            field_match = re.fullmatch(pattern, authorization_header.strip())
+            if field_match is not None:
+                return field_match.group('token')
+        return None
