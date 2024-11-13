@@ -34,11 +34,11 @@ def unauthorize_handler(e):
 def handle_before_request(r=requests_paths):
     """sets up the authorization system"""
 
-    if os.getenv('AUTH_TYPE') == "auth":
-        from api.v1.auth.auth import Auth
+    if os.getenv('AUTH_TYPE') == "basic_auth":
+        from .auth.basic_auth import BasicAuth
 
         # Create an Instance of  a Auth
-        auth = Auth()
+        auth = BasicAuth()
 
         if auth is None:
             return
@@ -55,6 +55,12 @@ def handle_before_request(r=requests_paths):
 
         if cur_user is None:
             abort(403)
+
+    else:
+        from .auth.auth import Auth
+
+        auth = Auth()
+
 
 
 @app.errorhandler(404)
