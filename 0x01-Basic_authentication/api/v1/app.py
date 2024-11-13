@@ -12,7 +12,6 @@ from flask import Flask, Request, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 import os
 
-
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
@@ -52,27 +51,24 @@ def handle_before_request(r=requests_paths):
             abort(401)
 
         cur_user = auth.current_user(request)
-
         if cur_user is None:
             abort(403)
-
     else:
         from .auth.auth import Auth
-
         auth = Auth()
-
 
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Not found handler
+    """ Not found error handler
     """
     return jsonify({"error": "Not found"}), 404
 
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
-    """ Forbidden handler
+    """ Forbidden handler for handling 403 errors
+    triggered by abort() method of flask
     """
     return jsonify({"error": "Forbidden"}), 403
 
