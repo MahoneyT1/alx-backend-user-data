@@ -68,4 +68,5 @@ class Auth:
 
     def current_user(self, request=None) -> TypeVar:
         """stores the current user """
-        user  = request.current_user()
+        user  = self.current_user
+        
