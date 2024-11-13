@@ -27,7 +27,7 @@ requests_paths = ['/api/v1/status/',
 @app.errorhandler(401)
 def unauthorize_handler(e):
     """Route that triggers a 401 Unauthorized error."""
-    return jsonify({"error": "Unauthorized"})
+    return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.before_request
