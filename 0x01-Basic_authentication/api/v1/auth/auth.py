@@ -14,6 +14,8 @@ from flask import request
 from typing import List, TypeVar
 import re
 
+from api.v1 import auth
+
 
 class Auth:
     """Authentication system for the Api"""
@@ -49,8 +51,24 @@ class Auth:
         return True
 
     def authorization_header(self, request=None) -> str:
-        """returns False"""
+        """ If request is None, returns None
+        If request doesn’t contain the header key Authorization, returns None
+        Otherwise, return the value of the header request Authorization
+        Update the file api/v1/app.py:""
         return None
+        """
+
+        if request is None:
+            return None
+
+        authorization = request.headers.get('Authorization')
+
+        if authorization is None:
+            return None
+        else:
+            return authorization 
+
+
 
     def current_user(self, request=None) -> TypeVar:
         """stores the current user """
