@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """Basic Athentication
 """
 from .auth import Auth
@@ -7,5 +7,5 @@ from .auth import Auth
 class BasicAuth(Auth):
     """Basic Auth"""
 
-    
+
     
