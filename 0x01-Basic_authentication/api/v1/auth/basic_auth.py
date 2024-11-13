@@ -9,6 +9,7 @@ create an instance of BasicAuth and assign it to the variable auth
 """
 from ctypes import Union
 from .auth import Auth
+import re
 
 
 class BasicAuth(Auth):
