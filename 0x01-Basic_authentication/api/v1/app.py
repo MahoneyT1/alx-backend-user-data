@@ -25,13 +25,17 @@ requests_paths = ['/api/v1/status/',
 
 @app.errorhandler(401)
 def unauthorize_handler(e):
-    """Route that triggers a 401 Unauthorized error."""
+    """Route that triggers a 401 Unauthorized error.
+    thv f  rfrjef jrjfre kkk f r r kjrk
+    """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.before_request
 def handle_before_request(r=requests_paths):
-    """sets up the authorization system"""
+    """sets up the authorization system
+    therhe thbbgrbjk gegbekgbkg gebgekg gebgejkeegk
+    """
 
     if os.getenv('AUTH_TYPE') == "basic_auth":
         from .auth.basic_auth import BasicAuth
@@ -60,7 +64,8 @@ def handle_before_request(r=requests_paths):
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Not found error handler
+    """ Not found error handler ththehehehehehhehe thhhhejk htth gjge
+    thehgg jg jgh hgejgjg
     """
     return jsonify({"error": "Not found"}), 404
 
