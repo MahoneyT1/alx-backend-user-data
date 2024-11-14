@@ -9,6 +9,7 @@ create an instance of BasicAuth and assign it to the variable auth
 """
 from ctypes import Union
 from .auth import Auth
+import base64
 
 
 class BasicAuth(Auth):
@@ -42,3 +43,28 @@ class BasicAuth(Auth):
                 return new_string
             return None
         return None
+
+    def decode_base64_authorization_header(
+            self,base64_authorization_header: str) -> str:
+        """that returns the decoded value of a Base64 string
+        base64_authorization_header:
+
+        Return None if base64_authorization_header is None
+        Return None if base64_authorization_header is not a string
+        Return None if base64_authorization_header is not a valid
+        Base64 - you can use try/except
+        Otherwise, return the decoded value as UTF8 string - you
+        can use decode('utf-8')
+        """
+
+        if base64_authorization_header is None:
+            return None
+
+        if (type(base64_authorization_header) != str):
+            return None
+
+        try:
+            new_decoded = base64.b64decode(base64_authorization_header)
+            return new_decoded.decode('utf-8')
+        except Exception:
+            return None
