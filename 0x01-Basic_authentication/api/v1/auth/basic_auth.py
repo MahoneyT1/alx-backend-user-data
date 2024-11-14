@@ -79,7 +79,7 @@ class BasicAuth(Auth):
         decoded value.
         """
         if decoded_base64_authorization_header is None:
-            return None
+            return (None, None)
 
         if isinstance(decoded_base64_authorization_header, str):
             if ":" in decoded_base64_authorization_header:
