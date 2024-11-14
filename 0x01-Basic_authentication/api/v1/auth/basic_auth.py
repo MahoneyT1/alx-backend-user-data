@@ -61,7 +61,7 @@ class BasicAuth(Auth):
         if base64_authorization_header is None:
             return None
 
-        if (type(base64_authorization_header) is str):
+        if not isinstance(base64_authorization_header, str):
             return None
 
         try:
