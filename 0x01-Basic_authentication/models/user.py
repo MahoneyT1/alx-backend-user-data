@@ -6,7 +6,8 @@ from models.base import Base
 
 
 class User(Base):
-    """ User class
+    """ User class that is does anything related to user,
+    iherited a base class base. also has password
     """
 
     def __init__(self, *args: list, **kwargs: dict):
