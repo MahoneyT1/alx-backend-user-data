@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-""" Route module for the API, In this archive, you will find a simple
-API with one model: User. Storage of these users is done via a
-serialization/deserialization in files.
-"""
+
 from ast import List
 from email.policy import HTTP
 from http.client import HTTPException
@@ -35,6 +32,9 @@ def unauthorize_handler(e):
 def handle_before_request(r=requests_paths):
     """sets up the authorization system
     if environment varible is auth create auth instance
+    Route module for the API, In this archive, you will find a simple
+    API with one model: User. Storage of these users is done via a
+    serialization/deserialization in files.
     """
 
     if os.getenv('AUTH_TYPE') == "basic_auth":
@@ -81,7 +81,9 @@ def handle_before_request(r=requests_paths):
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found error handler that handles eror 404 and response
-    with error not found
+    with error not found. Route module for the API, In this archive, you will find a simple
+    API with one model: User. Storage of these users is done via a
+    serialization/deserialization in files.
     """
     return jsonify({"error": "Not found"}), 404
 
@@ -89,7 +91,10 @@ def not_found(error) -> str:
 @app.errorhandler(403)
 def forbidden(error) -> str:
     """ Forbidden handler for handling 403 errors
-    triggered by abort() method of flask
+    triggered by abort() method of flask,
+    Route module for the API, In this archive, you will find a simple
+    API with one model: User. Storage of these users is done via a
+    serialization/deserialization in files.
     """
     return jsonify({"error": "Forbidden"}), 403
 
