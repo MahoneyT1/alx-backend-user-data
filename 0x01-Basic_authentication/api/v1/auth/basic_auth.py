@@ -36,8 +36,7 @@ class BasicAuth(Auth):
         You can assume authorization_header contains only one Basic
         """
 
-        if not isinstance(authorization_header, str) or\
-                authorization_header is None:
+        if not isinstance(authorization_header, str) or authorization_header is None:
             return None
 
         if authorization_header.startswith('Basic'):
@@ -91,7 +90,7 @@ class BasicAuth(Auth):
         else:
             return (None, None)
 
-    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar['User']:
+    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
         """asicAuth that returns the User instance based on his email and password"""
 
         # Return None if user_email is None or not a string
