@@ -35,7 +35,7 @@ class Base():
         else:
             self.updated_at = datetime.utcnow()
 
-    def __eq__(self, other: TypeVar('Base')) -> bool:
+    def __eq__(self, other: TypeVar['Base']) -> bool:
         """ Equality
         """
         if type(self) != type(other):

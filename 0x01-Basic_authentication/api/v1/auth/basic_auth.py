@@ -12,7 +12,8 @@ from ctypes import Union
 from pickle import NONE
 from .auth import Auth
 import base64
-from typing import Tuple
+from typing import Tuple, TypeVar
+from models.user import User
 
 
 class BasicAuth(Auth):
@@ -89,3 +90,22 @@ class BasicAuth(Auth):
             return (None, None)
         else:
             return (None, None)
+
+    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar['User']:
+        """asicAuth that returns the User instance based on his email and password"""
+
+        # Return None if user_email is None or not a string
+        if user_email is None:
+            return None
+        
+        # Return None if user_pwd is None or not a string
+        if type(user_pwd) != str:
+            return None
+        
+        # Return None if your database (file) doesn’t contain any User instance
+        # with email equal to user_email - you should use the class method search
+        # of the User to lookup the list of users based on their email. Don’t forget
+        # to test all cases: “what if there is no user in DB?”, etc.
+
+
+

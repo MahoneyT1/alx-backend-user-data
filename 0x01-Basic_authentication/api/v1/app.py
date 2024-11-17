@@ -26,6 +26,7 @@ requests_paths = ['/api/v1/status/',
 @app.errorhandler(401)
 def unauthorize_handler(e):
     """Route that triggers a 401 Unauthorized error.
+    with the response of 401
     """
     return jsonify({"error": "Unauthorized"}), 401
 
@@ -79,7 +80,8 @@ def handle_before_request(r=requests_paths):
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Not found error handler
+    """ Not found error handler that handles eror 404 and response
+    with error not found
     """
     return jsonify({"error": "Not found"}), 404
 
