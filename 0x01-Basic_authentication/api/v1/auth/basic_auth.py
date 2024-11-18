@@ -10,6 +10,9 @@ create an instance of BasicAuth and assign it to the variable auth
 from ast import Tuple
 from ctypes import Union
 from pickle import NONE
+from re import search
+import re
+from site import USER_BASE
 from .auth import Auth
 import base64
 from typing import Tuple, TypeVar
@@ -28,7 +31,6 @@ class BasicAuth(Auth):
         (self, authorization_header: str) -> str: in the class BasicAuth
         that returns the Base64 part of the Authorization header for a
         Basic Authentication:Return None if authorization_header is None
-
         Return None if authorization_header is not a string
         Return None if authorization_header doesn’t start by Basic
         (with a space at the end)
@@ -36,7 +38,9 @@ class BasicAuth(Auth):
         You can assume authorization_header contains only one Basic
         """
 
-        if not isinstance(authorization_header, str) or authorization_header is None:
+        if not isinstance(
+                          authorization_header,
+                          str) or authorization_header is None:
             return None
 
         if authorization_header.startswith('Basic'):
@@ -52,7 +56,6 @@ class BasicAuth(Auth):
             self, base64_authorization_header: str) -> str:
         """that returns the decoded value of a Base64 string
         base64_authorization_header:
-
         Return None if base64_authorization_header is None
         Return None if base64_authorization_header is not a string
         Return None if base64_authorization_header is not a valid
@@ -74,7 +77,9 @@ class BasicAuth(Auth):
             return None
 
     def extract_user_credentials(
-            self, decoded_base64_authorization_header: str) -> Tuple[str, str]:
+            self,
+            decoded_base64_authorization_header: str)\
+            -> Tuple[str, str]:
         """BasicAuth that returns the user email and password from the Base64
         decoded value.
         """
@@ -90,21 +95,36 @@ class BasicAuth(Auth):
         else:
             return (None, None)
 
-    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
-        """asicAuth that returns the User instance based on his email and password"""
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """asicAuth that returns the User instance based
+        on his email and password"""
 
         # Return None if user_email is None or not a string
         if user_email is None:
             return None
-        
+
         # Return None if user_pwd is None or not a string
-        if type(user_pwd) != str:
+        if type(user_pwd) is not str:
             return None
-        
-        # Return None if your database (file) doesn’t contain any User instance
-        # with email equal to user_email - you should use the class method search
-        # of the User to lookup the list of users based on their email. Don’t forget
-        # to test all cases: “what if there is no user in DB?”, etc.
 
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """BasicAuth that returns the User instance based on
+        his email and password.
+        Return None if user_email is None or not a string
+        Return None if user_pwd is None or not a string
+        """
 
+        # Return None if user_email is None or not a string
+        if type(user_email) is str and type(user_pwd) is str:
+            try:
+                users = User.search({"email": user_email})
+            except Exception:
+                return None
 
+            if len(users) <= 0:
+                return None
+            if users[0].is_valid_password(user_pwd):
+                return users[0]
+        return None
