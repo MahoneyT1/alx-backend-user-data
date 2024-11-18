@@ -128,3 +128,18 @@ class BasicAuth(Auth):
             if users[0].is_valid_password(user_pwd):
                 return users[0]
         return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """Now, you have all pieces for having a complete
+        Basic authentication.
+        You must use authorization_header
+        You must use extract_base64_authorization_header
+        You must use decode_base64_authorization_header
+        You must use extract_user_credentials
+        You must use user_object_from_credentials
+        """
+        auth_header = self.authorization_header(request)
+        b64_auth_token = self.extract_base64_authorization_header(auth_header)
+        auth_token = self.decode_base64_authorization_header(b64_auth_token)
+        email, password = self.extract_user_credentials(auth_token)
+        return self.user_object_from_credentials(email, password)
