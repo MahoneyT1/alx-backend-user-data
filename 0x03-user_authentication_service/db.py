@@ -77,19 +77,17 @@ class DB:
         arguments then commit changes to the database.
         """
         user = self.find_user_by(id=user_id)
+
         try:
             user
             # find user by id
         except NoResultFound:
             raise ValueError
 
-        # if user is found / user not None
-        # if kwargs was provided
-
         for key, value in kwargs.items():
             if hasattr(user, key):
                 setattr(user, key, value)
-            raise ValueError
-
+            else:
+                raise ValueError
         # commit to database
         self._session.commit()
