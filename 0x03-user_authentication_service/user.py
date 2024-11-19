@@ -15,10 +15,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 
 
-base = declarative_base()
+Base = declarative_base()
 
 
-class User(base):
+class User(Base):
     """User table that maps id, email, password, session, token_reset
     """
 
@@ -28,3 +28,12 @@ class User(base):
     hashed_password = Column(String(250), nullable=False)
     session_id = Column(String(250), nullable=True)
     reset_token = Column(String(250), nullable=True)
+
+    def __init__(self, *args, **kwargs):
+        """Initialize a user model"""
+
+        if "email" in kwargs:
+            self.email = kwargs['email']
+
+        if "hashed_password" in kwargs:
+            self.hashed_password = kwargs['hashed_password']
