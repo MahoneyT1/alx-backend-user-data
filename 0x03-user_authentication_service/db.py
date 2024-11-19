@@ -82,13 +82,13 @@ class DB:
         except NoResultFound:
             raise
 
-            # if user is found / user not None
-            # if kwargs was provided
+        # if user is found / user not None
+        # if kwargs was provided
 
         for key, value in kwargs.items():
             if hasattr(user, key):
                 setattr(user, key, value)
             raise ValueError
-            # commit to database
-            self._session.commit()
 
+        # commit to database
+        self._session.commit()
