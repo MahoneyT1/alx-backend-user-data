@@ -76,20 +76,35 @@ class DB:
         then will update the user’s attributes as passed in the method’s
         arguments then commit changes to the database.
         """
+        # try:
+        #     # find user by id
+        #     user = self.find_user_by(id=user_id)
+
+        #     # if user is found / user not None
+        #     # if kwargs was provided
+        #     if user and kwargs:
+        #         for key, value in kwargs.items():
+        #             if hasattr(user, key):
+        #                 setattr(user, key, value)
+
+        #         # commit to database
+        #         self._session.commit()
+        #     else:
+        #         raise NoResultFound
+        # except ValueError:
+        #     raise
+
+        user = self.find_user_by(id=user_id)
+
         try:
-            # find user by id
-            user = self.find_user_by(id=user_id)
+            user
+        except NoResultFound:
+            raise ValueError
 
-            # if user is found / user not None
-            # if kwargs was provided
-            if user and kwargs:
-                for key, value in kwargs.items():
-                    if hasattr(user, key):
-                        setattr(user, key, value)
-
-                # commit to database
-                self._session.commit()
+        for key, value in kwargs.items():
+            if hasattr(user, key):
+                setattr(user, key, value)
             else:
-                raise NoResultFound
-        except ValueError:
-            raise
+                raise ValueError
+
+        self._session.commit()
