@@ -66,17 +66,16 @@ class DB:
             raise
 
     def update_user(self, user_id: str, **kwargs) -> None:
-        """method that takes as argument a required user_id integer and arbitrary
-        keyword arguments, and returns None.
+        """method that takes as argument a required user_id integer
+        and arbitrary keyword arguments, and returns None.
         Args:
             user_id to filter user by their id
-        
         Returns:
             None
-        The method will use find_user_by to locate the user to update, then will
-        update the user’s attributes as passed in the method’s arguments then
-        commit changes to the database.
-        """ 
+        The method will use find_user_by to locate the user to update,
+        then will update the user’s attributes as passed in the method’s
+        arguments then commit changes to the database.
+        """
         try:
             # find user by id
             user = self.find_user_by(id=user_id)
