@@ -76,9 +76,10 @@ class DB:
         then will update the user’s attributes as passed in the method’s
         arguments then commit changes to the database.
         """
+        user = self.find_user_by(id=user_id)
         try:
+            user
             # find user by id
-            user = self.find_user_by(id=user_id)
         except NoResultFound:
             raise ValueError
 
