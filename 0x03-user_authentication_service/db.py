@@ -10,11 +10,13 @@ from user import Base, User
 
 
 class DB:
-    """DB class
+    """DB class for database, creates and tears down db at the point of
+    entry
     """
 
     def __init__(self) -> None:
-        """Initialize a new DB instance
+        """Initialize a new DB instance, create the engine and metada
+        and create a session object set it to None
         """
         self._engine = create_engine("sqlite:///a.db", echo=True)
         Base.metadata.drop_all(self._engine)
