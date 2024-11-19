@@ -65,7 +65,7 @@ class DB:
         except InvalidRequestError:
             raise
 
-    def update_user(self, user_id: str, **kwargs: Mapping[str, str]) -> None:
+    def update_user(self, user_id: int, **kwargs: Mapping[str, str]) -> None:
         """method that takes as argument a required user_id integer
         and arbitrary keyword arguments, and returns None.
         Args:
