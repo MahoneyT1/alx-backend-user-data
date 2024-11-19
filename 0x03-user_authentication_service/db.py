@@ -9,7 +9,7 @@ from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 from user import Base, User
 import logging
-from typing import Dict, List
+from typing import Dict, Mapping, Any
 
 
 logging.disable(logging.CRITICAL)
@@ -50,7 +50,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs: Dict) -> int:
+    def find_user_by(self, **kwargs: Mapping[str, Any]) -> User:
         """This method takes in arbitrary keyword arguments and returns
         the first row found in the users table as filtered by the method’s
         input arguments
