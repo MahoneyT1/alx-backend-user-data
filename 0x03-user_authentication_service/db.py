@@ -80,7 +80,7 @@ class DB:
             # find user by id
             user = self.find_user_by(id=user_id)
         except NoResultFound:
-            raise
+            raise ValueError
 
         # if user is found / user not None
         # if kwargs was provided
