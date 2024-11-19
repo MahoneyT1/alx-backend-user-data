@@ -64,3 +64,28 @@ class DB:
             return result
         except InvalidRequestError:
             raise
+
+    def update_user(self, user_id: str, **kwargs) -> None:
+        """method that takes as argument a required user_id integer and arbitrary
+        keyword arguments, and returns None.
+        Args:
+            user_id to filter user by their id
+        
+        Returns:
+            None
+        The method will use find_user_by to locate the user to update, then will
+        update the user’s attributes as passed in the method’s arguments then
+        commit changes to the database.
+        """ 
+        try:
+            # find user by id
+            user = self.find_user_by(id=user_id)
+
+            # if user is found / user not None
+            # if kwargs was provided
+            if user and kwargs:
+                for key, value in kwargs.items():
+                    if hasattr(user, key):
+                        setattr(user, key, value)
+        except ValueError:
+            raise
