@@ -44,13 +44,12 @@ class DB:
         a User object. The method should save the user to the database.
         No validations are required at this stage.
         """
-
         new_user = User(email=email, hashed_password=hashed_password)
         self._session.add(new_user)
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs: Mapping[str, Any]) -> User:
+    def find_user_by(self, **kwargs: Mapping[str, str]) -> User:
         """This method takes in arbitrary keyword arguments and returns
         the first row found in the users table as filtered by the method’s
         input arguments
