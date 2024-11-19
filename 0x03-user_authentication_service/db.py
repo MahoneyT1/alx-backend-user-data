@@ -87,7 +87,9 @@ class DB:
                     if hasattr(user, key):
                         setattr(user, key, value)
 
-                        # commit to database
-                        self._session.commit()
+                # commit to database
+                self._session.commit()
+            else:
+                raise NoResultFound
         except ValueError:
             raise
