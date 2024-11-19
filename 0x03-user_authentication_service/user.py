@@ -11,8 +11,8 @@ session_id, a nullable string
 reset_token, a nullable string
 """
 
-from sqalachemy.declarative.ext import declarative_base
-from sqalachemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
 
 
 base = declarative_base()
