@@ -86,8 +86,9 @@ class DB:
             for key, value in kwargs.items():
                 if hasattr(user, key):
                     setattr(user, key, value)
+                raise ValueError
 
                 # commit to database
                 self._session.commit()
-        except ValueError:
+        except NoResultFound:
             raise
