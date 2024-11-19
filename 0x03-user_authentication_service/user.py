@@ -29,11 +29,6 @@ class User(Base):
     session_id = Column(String(250), nullable=True)
     reset_token = Column(String(250), nullable=True)
 
-    def __init__(self, *args, **kwargs):
-        """Initialize a user model"""
-
-        if "email" in kwargs:
-            self.email = kwargs['email']
-
-        if "hashed_password" in kwargs:
-            self.hashed_password = kwargs['hashed_password']
+    def __init__(self, email, hashed_password):
+        self.email = email
+        self.hashed_password = hashed_password
