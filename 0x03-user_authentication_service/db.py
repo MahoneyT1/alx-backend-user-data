@@ -38,7 +38,7 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email, hashed_password):
+    def add_user(self, email: str, hashed_password: str) -> User:
         """Implement the add_user method, which has two required
         string arguments: email and hashed_password, and returns
         a User object. The method should save the user to the database.
