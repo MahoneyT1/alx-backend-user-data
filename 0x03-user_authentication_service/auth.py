@@ -72,5 +72,5 @@ class Auth:
         """should return a string representation of a new UUID. Use the uuid
         module.
         """
-        uuid_string = str(uuid.uuid4())
-        return uuid_string
+        return str(uuid.uuid4())
+
