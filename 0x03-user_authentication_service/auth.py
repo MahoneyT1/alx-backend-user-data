@@ -9,6 +9,7 @@ import bcrypt
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
+from typing import Any
 
 
 def _hash_password(password: str) -> str:
@@ -47,3 +48,21 @@ class Auth:
             hashed_pass = _hash_password(password)
             new_user = self._db.add_user(email, hashed_pass)
             return new_user
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """In this task, you will implement the Auth.valid_login method.
+        It should expect email and password required arguments and return
+        a boolean.
+
+        Try locating the user by email. If it exists, check the password
+        with bcrypt.checkpw. If it matches return True. In any other
+        case, return False.
+        """
+        try:
+            # using database method to find user with email
+            user = self._db.find_user_by(email=email)
+            if bcrypt.checkpw(password.encode('utf-8'), user.hashed_password):
+                return True
+            return False
+        except NoResultFound:
+            return False
