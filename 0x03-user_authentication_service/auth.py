@@ -74,3 +74,30 @@ class Auth:
         module.
         """
         return str(uuid.uuid4())
+
+    def create_session(self, email: str) -> str:
+        """ It takes an email string argument and returns the
+        session ID as a string.The method should find the user
+        corresponding to the email, generate a new UUID and store
+        it in the database as the user’s session_id, then return the
+        session ID.
+
+        Remember that only public methods of self._db can be used.
+        """
+        user = None
+        try:
+            # find the user by email
+            user = self._db.find_user_by(email=email)
+        except NoResultFound:
+            return None
+
+        if user is None:
+            return None
+
+        # generate a uuid string
+        session_id = self._generate_uuid()
+        # update the user by inserting uuid_string in the session_id
+        # column in the user schema database
+        self._db.update_user(user.id, session_id=session_id)
+
+        return session_id
