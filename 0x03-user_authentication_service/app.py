@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """ A Simple flask app"""
 
-from flask import flask, jsonify
+from flask import Flask, jsonify
+from typing import Dict
 
 
 app = Flask(__name__)
 
 
-@app.route("/", method=['GET'], strict_slashes=False)
+@app.route("/", methods=['GET'], strict_slashes=False)
 def home():
     """home page"""
     return jsonify({"message": "Bienvenue"})
