@@ -8,7 +8,7 @@ with bcrypt.hashpw.
 import bcrypt
 
 
-def _hash_password(password: str) bytes:
+def _hash_password(password: str) -> str:
     """converts string password to hashed
     Args:
         password(string)
