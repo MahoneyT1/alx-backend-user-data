@@ -10,6 +10,7 @@ from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
 from typing import Any
+from uuid import uuid4
 
 
 def _hash_password(password: str) -> str:
@@ -66,3 +67,10 @@ class Auth:
             return False
         except NoResultFound:
             return False
+
+    def _generate_uuid(self) -> str:
+        """should return a string representation of a new UUID. Use the uuid
+        module.
+        """
+        uuid_string = str(uuid4())
+        return uuid_string
