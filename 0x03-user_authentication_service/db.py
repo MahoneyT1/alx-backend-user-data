@@ -91,18 +91,14 @@ class DB:
                 raise ValueError
         # commit to database
         self._session.commit()
-
-
-
-
         try:
             user = self.find_user_by(id=user_id)
 
             for key, value in kwargs.items():
-            if hasattr(user, key):
-                setattr(user, key, value)
+                if hasattr(user, key):
+                    setattr(user, key, value)
        
-            raise ValueError
+                raise ValueError
         except NoResultFound:
             raise ValueError
         self._session.commit()
