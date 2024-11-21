@@ -119,6 +119,6 @@ class Auth:
         """The method updates the corresponding user’s session ID to None.
         """
 
-        return self._db.update_user(user_id, {"session_id": None})
+        return self._db.update_user(user_id, session_id=None)
 
 
