@@ -133,6 +133,7 @@ class Auth:
         UUID and update the user’s reset_token database field. Return
         the token.
         """
+        user = None
         try:
             user = self._db.find_user_by(email=email)
             reset_token = _generate_uuid()
