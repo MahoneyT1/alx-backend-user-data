@@ -56,7 +56,7 @@ def login():
     return response
 
 
-@app.route("/sessions", methods=['DELETE', 'GET'], strict_slashes=False)
+@app.route("/sessions", methods=['DELETE'], strict_slashes=False)
 def logout():
     """The request is expected to contain the session ID as a cookie
     with key "session_id".
@@ -75,7 +75,7 @@ def logout():
         # kill the session using the user id
         updated_user = AUTH.destroy_session(user.id)
 
-        return redirect(url_for('/'))
+        return redirect('/')
 
     except NoResultFound:
         abort(403)
