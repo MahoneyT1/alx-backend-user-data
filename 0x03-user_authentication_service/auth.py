@@ -101,3 +101,24 @@ class Auth:
         self._db.update_user(user.id, session_id=session_id)
 
         return session_id
+
+    def get_user_from_session_id(session_id: str) -> User:
+        """ It takes a single session_id string argument and returns
+        the corresponding User or None.
+
+        If the session ID is None or no user is found, return None.
+        Otherwise return the corresponding user
+        """
+        user = self._db.find_user_by(session_id=session_id)
+
+        if user is None and session_id is None:
+            return None
+        return user
+
+    def destroy_session(self, user_id: int) -> None:
+        """The method updates the corresponding user’s session ID to None.
+        """
+
+        return self._db.update_user(user_id, {"session_id": None})
+
+

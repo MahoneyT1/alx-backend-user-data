@@ -2,7 +2,8 @@
 """ A Simple flask app"""
 
 from auth import Auth
-from flask import Flask, jsonify, request, abort, make_response
+from flask import (Flask, jsonify, request,
+                   abort, make_response, redirect, url_for)
 from typing import Dict
 
 
@@ -53,6 +54,49 @@ def login():
 
     response.set_cookie("session_id", session_id)
     return response
+
+
+@app.route("/sessions", methods=['DELETE', 'GET'], strict_slashes=False)
+def logout():
+    """The request is expected to contain the session ID as a cookie
+    with key "session_id".
+
+    Find the user with the requested session ID. If the user exists
+    destroy the session and redirect the user to GET /. If the user does
+    not exist, respond with a 403 HTTP status.
+    """
+    # get the session_id from request.cookies
+    session_id = request.cookies.get("session_id")
+
+    try:
+        # using the session_id to get the actual user object
+        user = AUTH.get_user_from_session_id(session_id)
+
+        # kill the session using the user id
+        updated_user = AUTH.destroy_session(user.id)
+
+        return redirect(url_for('/'))
+
+    except NoResultFound:
+        abort(403)
+
+
+@app.route("/profile", methods=['GET'], strict_slashes=False)
+def profile():
+    """The request is expected to contain a session_id cookie.
+    Use it to find the user. If the user exist, respond with a
+    200 HTTP status and the following JSON payload:
+    {"email": "<user email>"}
+    """
+    session_id = request.cookie.get('session')
+
+    # obtain user from the session id
+    user = AUTH.get_user_from_session_id(session_id)
+
+    if user is not None:
+        return jsonify({"email": "<user email>"}), 200
+    else:
+        abort(403)
 
 
 if __name__ == "__main__":
