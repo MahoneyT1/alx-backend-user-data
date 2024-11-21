@@ -73,9 +73,10 @@ def logout():
 
     if user is not None:
         # kill the session using the user id
-        updated_user = AUTH.destroy_session(user.id)
+        AUTH.destroy_session(user.id)
         return redirect('/')
-    abort(403)
+    else:
+        abort(403)
 
 
 @app.route("/profile", methods=['GET'], strict_slashes=False)
@@ -91,7 +92,7 @@ def profile():
     user = AUTH.get_user_from_session_id(session_id)
 
     if user is not None:
-        return jsonify({"email": "<user email>"}), 200
+        return jsonify({"email": user.email}), 200
     else:
         abort(403)
 
