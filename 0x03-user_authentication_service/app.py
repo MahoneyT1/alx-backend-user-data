@@ -86,7 +86,7 @@ def profile():
     200 HTTP status and the following JSON payload:
     {"email": "<user email>"}
     """
-    session_id = request.cookie.get('session')
+    session_id = request.cookies.get('session_id')
 
     # obtain user from the session id
     user = AUTH.get_user_from_session_id(session_id)
